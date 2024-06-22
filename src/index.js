@@ -6,6 +6,6 @@ import {createRoot} from "react-dom/client";
 const root = createRoot(document.getElementById("root"));
 root.render (
     <StrictMode>
-        <h1>Titulo de la app</h1>
+        <h1>Titulo de aplicacion </h1>
     </StrictMode>
 );
