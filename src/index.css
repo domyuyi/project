@@ -1,0 +1,57 @@
+/* Reset básico de estilos */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, sans-serif;
+}
+
+/* Estilo general del contenedor principal */
+.container {
+    padding: 20px;
+}
+
+/* Estilos para la sección del Catálogo */
+.category {
+    margin-bottom: 30px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+/* Estilos para los productos seleccionados */
+#selected-products {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    min-height: 100px;
+}
+
+/* Estilos para el botón "Comprar" */
+#buy-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+/* Estilos para el gráfico de rendimiento */
+#performance-chart {
+    margin-top: 20px;
+}
+
+.bar {
+    width: 0;
+    height: 20px;
+    background-color: #28a745;
+    text-align: right;
+    padding-right: 5px;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: width 1s ease-in-out;
+}
+
+.bar-label {
+    margin-bottom: 5px;
+}

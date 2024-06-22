@@ -1,0 +1,44 @@
+.container {
+    padding: 20px;
+}
+
+.category {
+    margin-bottom: 30px;
+}
+
+h1, h2 {
+    text-align: center;
+}
+
+#selected-products {
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 20px;
+    min-height: 100px;
+}
+
+#buy-button {
+    width: 100%;
+    margin-top: 10px;
+}
+
+#performance-chart {
+    margin-top: 20px;
+}
+
+.bar {
+    width: 0;
+    height: 20px;
+    background-color: #28a745;
+    text-align: right;
+    padding-right: 5px;
+    color: white;
+    border-radius: 5px;
+    margin-bottom: 10px;
+    transition: width 1s ease-in-out;
+}
+
+.bar-label {
+    margin-bottom: 5px;
+}
