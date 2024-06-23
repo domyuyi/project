@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Container, Row, Col, Carousel, Button } from 'react-bootstrap';
-import { FaShoppingCart, FaSearch, FaCheck } from 'react-icons/fa';
+import { FaShoppingCart, FaCheck } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -45,8 +45,8 @@ const App = () => {
             <h2>Tarjetas Gráficas</h2>
             <Carousel>
               {graphicsCards.map((card) => (
-                <Carousel.Item key={card.id}>
-                  <img className="d-block w-100" src={card.image} alt={card.name} />
+                <Carousel.Item key={card.id} className="catalog-carousel-item">
+                  <img src={card.image} alt={card.name} />
                   <Carousel.Caption>
                     <h3>{card.name}</h3>
                     <p>{card.description}</p>
@@ -60,8 +60,8 @@ const App = () => {
             <h2>Procesadores</h2>
             <Carousel>
               {processors.map((processor) => (
-                <Carousel.Item key={processor.id}>
-                  <img className="d-block w-100" src={processor.image} alt={processor.name} />
+                <Carousel.Item key={processor.id} className="catalog-carousel-item">
+                  <img src={processor.image} alt={processor.name} />
                   <Carousel.Caption>
                     <h3>{processor.name}</h3>
                     <p>{processor.description}</p>
@@ -77,12 +77,18 @@ const App = () => {
           <div id="selected-products">
             {selectedGraphicsCard && (
               <div>
-                <strong>{selectedGraphicsCard.name}</strong>: {selectedGraphicsCard.description}
+                <img src={selectedGraphicsCard.image} alt={selectedGraphicsCard.name} />
+                <div>
+                  <strong>{selectedGraphicsCard.name}</strong>: {selectedGraphicsCard.description}
+                </div>
               </div>
             )}
             {selectedProcessor && (
               <div>
-                <strong>{selectedProcessor.name}</strong>: {selectedProcessor.description}
+                <img src={selectedProcessor.image} alt={selectedProcessor.name} />
+                <div>
+                  <strong>{selectedProcessor.name}</strong>: {selectedProcessor.description}
+                </div>
               </div>
             )}
           </div>

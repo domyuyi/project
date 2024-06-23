@@ -11,11 +11,30 @@ h1, h2 {
 }
 
 #selected-products {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
     border: 1px solid #ccc;
     border-radius: 5px;
     padding: 10px;
     margin-bottom: 20px;
-    min-height: 100px;
+}
+
+#selected-products > div {
+    display: flex;
+    align-items: center;
+    margin-bottom: 10px;
+}
+
+#selected-products img {
+    max-width: 100px; /* Ajusta el ancho máximo de las imágenes */
+    height: auto; /* Altura automática para mantener la proporción */
+    margin-right: 10px; /* Espacio a la derecha de la imagen */
+}
+
+#selected-products strong {
+    font-weight: bold;
+    margin-right: 5px;
 }
 
 #buy-button {
@@ -41,4 +60,18 @@ h1, h2 {
 
 .bar-label {
     margin-bottom: 5px;
+}
+
+/* Ajustes para el carrusel en el catálogo */
+.catalog-carousel-item {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+}
+
+.catalog-carousel-item img {
+    max-width: 100%; /* Ajusta el ancho máximo de las imágenes */
+    height: auto; /* Altura automática para mantener la proporción */
+    max-height: 250px; /* Ajusta la altura máxima de las imágenes */
 }
