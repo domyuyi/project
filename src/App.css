@@ -1,5 +1,6 @@
 .container {
     padding: 20px;
+    display: flex;
 }
 
 .category {
@@ -27,9 +28,9 @@ h1, h2 {
 }
 
 .selected-product img {
-    max-width: 50px; /* Ajusta el ancho máximo de las imágenes */
-    height: auto; /* Altura automática para mantener la proporción */
-    margin-right: 10px; /* Espacio a la derecha de la imagen */
+    max-width: 50px;
+    height: auto;
+    margin-right: 10px;
 }
 
 #buy-button {
@@ -65,7 +66,7 @@ h1, h2 {
 }
 
 .product-item {
-    flex: 1 1 22%; /* Ajusta el ancho de cada producto */
+    width: 30%;
     text-align: center;
     margin: 10px;
     border: 1px solid #ccc;
@@ -75,8 +76,8 @@ h1, h2 {
 }
 
 .product-item img {
-    max-width: 100%; /* Ajusta el ancho máximo de las imágenes */
-    height: auto; /* Altura automática para mantener la proporción */
+    max-width: 100%;
+    height: auto;
     margin-bottom: 10px;
 }
 
@@ -88,21 +89,48 @@ h1, h2 {
     margin: 5px 0;
 }
 
+.product-price {
+    font-size: 1.2rem;
+    color: #ff5733;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
 .select-button {
     width: 100%;
-    background-color: white; /* Fondo blanco */
-    color: #007bff; /* Color azul */
-    border: 1px solid #007bff; /* Borde azul */
+    background-color: white;
+    color: #007bff;
+    border: 1px solid #007bff;
     transition: background-color 0.3s, color 0.3s;
 }
 
 .select-button:hover {
-    background-color: #007bff; /* Fondo azul al pasar el cursor */
-    color: white; /* Color blanco al pasar el cursor */
+    background-color: #007bff;
+    color: white;
 }
 
 .carousel-controls {
     display: flex;
     justify-content: space-between;
     margin-top: 10px;
+}
+
+.filters {
+    margin-bottom: 20px;
+}
+
+.filter-group {
+    margin-bottom: 10px;
+}
+
+.filter-label {
+    font-weight: bold;
+}
+
+.search-bar {
+    width: 100%;
+    padding: 5px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
 }
