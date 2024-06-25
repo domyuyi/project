@@ -20,21 +20,16 @@ h1, h2 {
     margin-bottom: 20px;
 }
 
-#selected-products > div {
+.selected-product {
     display: flex;
     align-items: center;
     margin-bottom: 10px;
 }
 
-#selected-products img {
-    max-width: 100px; /* Ajusta el ancho máximo de las imágenes */
+.selected-product img {
+    max-width: 50px; /* Ajusta el ancho máximo de las imágenes */
     height: auto; /* Altura automática para mantener la proporción */
     margin-right: 10px; /* Espacio a la derecha de la imagen */
-}
-
-#selected-products strong {
-    font-weight: bold;
-    margin-right: 5px;
 }
 
 #buy-button {
@@ -62,16 +57,52 @@ h1, h2 {
     margin-bottom: 5px;
 }
 
-/* Ajustes para el carrusel en el catálogo */
-.catalog-carousel-item {
+.product-grid {
     display: flex;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 20px;
 }
 
-.catalog-carousel-item img {
+.product-item {
+    flex: 1 1 22%; /* Ajusta el ancho de cada producto */
+    text-align: center;
+    margin: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    padding: 10px;
+    box-sizing: border-box;
+}
+
+.product-item img {
     max-width: 100%; /* Ajusta el ancho máximo de las imágenes */
     height: auto; /* Altura automática para mantener la proporción */
-    max-height: 250px; /* Ajusta la altura máxima de las imágenes */
+    margin-bottom: 10px;
+}
+
+.product-item h4 {
+    font-size: 1rem;
+}
+
+.product-item p {
+    margin: 5px 0;
+}
+
+.select-button {
+    width: 100%;
+    background-color: white; /* Fondo blanco */
+    color: #007bff; /* Color azul */
+    border: 1px solid #007bff; /* Borde azul */
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.select-button:hover {
+    background-color: #007bff; /* Fondo azul al pasar el cursor */
+    color: white; /* Color blanco al pasar el cursor */
+}
+
+.carousel-controls {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 10px;
 }
