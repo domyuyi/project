@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { FaCheck, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
+import { FaShoppingCart } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 
@@ -80,14 +81,18 @@ const App = () => {
   };
 
   const displayPerformanceChart = () => {
-    const performance = Math.random() * 100;
-    return (
-      <div>
-        <div className="bar-label">Rendimiento de la combinación</div>
-        <div className="bar" style={{ width: `${performance}%` }}>{performance.toFixed(2)}%</div>
-      </div>
-    );
+    if (selectedGraphicsCard && selectedProcessor) {
+      const performance = Math.random() * 100; // Valor de rendimiento aleatorio
+      return (
+        <div className="bell-curve">
+          <div className="bell-curve-inner" style={{ width: `${performance}%` }}></div>
+          <div className="bell-curve-ball" style={{ left: `${performance}%` }}></div>
+        </div>
+      );
+    }
+    return null;
   };
+  
 
   const renderProducts = (products, startIndex, category) => {
     return products.slice(startIndex, startIndex + 3).map((product) => (
@@ -95,7 +100,7 @@ const App = () => {
         <img src={product.image} alt={product.name} />
         <h4>{product.name}</h4>
         <p className="product-price">S/. {product.price}</p>
-        <Button className="select-button" onClick={() => selectProduct(category, product)}><FaCheck /> Seleccionar</Button>
+        <Button className="select-button" onClick={() => selectProduct(category, product)}><FaCheck /> Armar</Button>
       </div>
     ));
   };
@@ -228,7 +233,7 @@ const App = () => {
               </div>
             )}
           </div>
-          <Button id="buy-button">Comprar</Button>
+          <Button id="buy-button"><FaShoppingCart /> Comprar</Button>
           {selectedGraphicsCard && selectedProcessor && (
             <div id="performance-chart">
               {displayPerformanceChart()}
