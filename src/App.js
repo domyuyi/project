@@ -5,6 +5,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './Header';
 import Footer from './Footer';
+import GaussianBellCurve from './GaussianBellCurve';
 
 const graphicsCards = [
   { id: 1, name: 'NVIDIA GeForce RTX 3080', description: 'High-end gaming GPU with 10GB GDDR6X.', price: 4500, specialOffer: true, freeShipping: true, image: '/assets/graphics_card.jpg' },
@@ -78,13 +79,9 @@ const App = () => {
 
   const displayPerformanceChart = () => {
     if (selectedGraphicsCard && selectedProcessor) {
-      const performance = Math.random() * 100; // Valor de rendimiento aleatorio
-      return (
-        <div className="bell-curve">
-          <div className="bell-curve-inner" style={{ width: `${performance}%` }}></div>
-          <div className="bell-curve-ball" style={{ left: `${performance}%` }}></div>
-        </div>
-      );
+      const mean = 50;
+      const stdDev = 15;
+      return <GaussianBellCurve mean={mean} stdDev={stdDev} />;
     }
     return null;
   };
@@ -198,6 +195,10 @@ const App = () => {
                 )}
               </Col>
             </Row>
+            <div className="selected-item">
+                <h4>Rendimiento estimado</h4>
+                {displayPerformanceChart()}
+            </div>
           </Col>
         </Row>
       </Container>
