@@ -8,7 +8,11 @@ const Footer = () => {
                 <div className="row">
                     <div className="col-md-6">
                         <h5>Información de creador</h5>
-                        <p>Correo electrónico: svelasquezr1@upao.edu.pe</p>
+                        <p>Correo electrónico:</p>
+                        <p>-    ycachoq1@upao.edu.pe </p>
+                        <p>-    hberrospir1@upao.edu.pe </p>
+                        <p>-    rlavadof1@upao.edu.pe </p>
+                        <p>-    sevelasquezr1@upao.edu.pe </p>
                         <p>Teléfono: 923-456-789</p>
                     </div>
                     <div className="col-md-6">
@@ -23,7 +27,7 @@ const Footer = () => {
                 <hr />
                 <div className="row">
                     <div className="col-md-12 text-center">
-                        <p>© 2024 Sergio Emanuel Velásquez Reyes</p>
+                        <p>© 2024 Grupo IHM</p>
                     </div>
                 </div>
             </div>
