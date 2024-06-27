@@ -4,6 +4,7 @@ import { FaCheck, FaChevronLeft, FaChevronRight, FaShoppingCart } from 'react-ic
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './Header';
+import Footer from './Footer';
 
 const graphicsCards = [
   { id: 1, name: 'NVIDIA GeForce RTX 3080', description: 'High-end gaming GPU with 10GB GDDR6X.', price: 4500, specialOffer: true, freeShipping: true, image: '/assets/graphics_card.jpg' },
@@ -200,6 +201,7 @@ const App = () => {
           </Col>
         </Row>
       </Container>
+      <Footer />
     </div>
   );
 };
