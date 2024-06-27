@@ -1,9 +1,9 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
-import { FaCheck, FaChevronLeft, FaChevronRight } from 'react-icons/fa';
-import { FaShoppingCart } from 'react-icons/fa';
+import { FaCheck, FaChevronLeft, FaChevronRight, FaShoppingCart } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
+import Header from './Header';
 
 const graphicsCards = [
   { id: 1, name: 'NVIDIA GeForce RTX 3080', description: 'High-end gaming GPU with 10GB GDDR6X.', price: 4500, specialOffer: true, freeShipping: true, image: '/assets/graphics_card.jpg' },
@@ -32,17 +32,12 @@ const App = () => {
   const [graphicsIndex, setGraphicsIndex] = useState(0);
   const [processorsIndex, setProcessorsIndex] = useState(0);
 
-  const [graphicsSearch, setGraphicsSearch] = useState('');
-  const [processorsSearch, setProcessorsSearch] = useState('');
-
-  const [graphicsPriceRange, setGraphicsPriceRange] = useState([0, 5000]);
-  const [processorsPriceRange, setProcessorsPriceRange] = useState([0, 2500]);
-
-  const [graphicsSpecialOffer, setGraphicsSpecialOffer] = useState(false);
-  const [processorsSpecialOffer, setProcessorsSpecialOffer] = useState(false);
-
-  const [graphicsFreeShipping, setGraphicsFreeShipping] = useState(false);
-  const [processorsFreeShipping, setProcessorsFreeShipping] = useState(false);
+  const [searchQuery, setSearchQuery] = useState('');
+  const [filters, setFilters] = useState({
+    price: [0, 5000],
+    dailyDeal: false,
+    freeShipping: false,
+  });
 
   const selectProduct = (category, product) => {
     if (category === 'graphics') {
@@ -53,16 +48,16 @@ const App = () => {
   };
 
   const filteredGraphicsCards = graphicsCards
-    .filter(card => card.name.toLowerCase().includes(graphicsSearch.toLowerCase()))
-    .filter(card => card.price >= graphicsPriceRange[0] && card.price <= graphicsPriceRange[1])
-    .filter(card => !graphicsSpecialOffer || card.specialOffer)
-    .filter(card => !graphicsFreeShipping || card.freeShipping);
+    .filter(card => card.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .filter(card => card.price >= filters.price[0] && card.price <= filters.price[1])
+    .filter(card => (!filters.dailyDeal || card.specialOffer))
+    .filter(card => (!filters.freeShipping || card.freeShipping));
 
   const filteredProcessors = processors
-    .filter(proc => proc.name.toLowerCase().includes(processorsSearch.toLowerCase()))
-    .filter(proc => proc.price >= processorsPriceRange[0] && proc.price <= processorsPriceRange[1])
-    .filter(proc => !processorsSpecialOffer || proc.specialOffer)
-    .filter(proc => !processorsFreeShipping || proc.freeShipping);
+    .filter(proc => proc.name.toLowerCase().includes(searchQuery.toLowerCase()))
+    .filter(proc => proc.price >= filters.price[0] && proc.price <= filters.price[1])
+    .filter(proc => (!filters.dailyDeal || proc.specialOffer))
+    .filter(proc => (!filters.freeShipping || proc.freeShipping));
 
   const prevGraphics = () => {
     setGraphicsIndex((prevIndex) => (prevIndex === 0 ? Math.max(filteredGraphicsCards.length - 3, 0) : prevIndex - 3));
@@ -92,7 +87,6 @@ const App = () => {
     }
     return null;
   };
-  
 
   const renderProducts = (products, startIndex, category) => {
     return products.slice(startIndex, startIndex + 3).map((product) => (
@@ -105,143 +99,108 @@ const App = () => {
     ));
   };
 
-  useEffect(() => {
-    // Reset the performance chart when new products are selected
-    if (selectedGraphicsCard || selectedProcessor) {
-      setGraphicsIndex(0);
-      setProcessorsIndex(0);
-    }
-  }, [selectedGraphicsCard, selectedProcessor]);
+  const handleFilterChange = (filterName, value) => {
+    setFilters(prevFilters => ({
+      ...prevFilters,
+      [filterName]: value
+    }));
+  };
 
   return (
-    <Container>
-      <Row>
-        <Col md={8}>
-          <h1>Catálogo</h1>
-          <div className="category">
-            <h2>Tarjetas Gráficas</h2>
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Buscar por nombre..."
-              value={graphicsSearch}
-              onChange={(e) => setGraphicsSearch(e.target.value)}
-            />
-            <div className="filters">
-              <div className="filter-group">
-                <label className="filter-label">Precio</label>
-                <Form.Range
-                  min={0}
-                  max={5000}
-                  value={graphicsPriceRange[1]}
-                  onChange={(e) => setGraphicsPriceRange([0, parseInt(e.target.value)])}
-                />
-                <div>0 - S/. {graphicsPriceRange[1]}</div>
-              </div>
-              <div className="filter-group">
-                <label className="filter-label">Oferta del día</label>
-                <Form.Check
-                  type="checkbox"
-                  checked={graphicsSpecialOffer}
-                  onChange={(e) => setGraphicsSpecialOffer(e.target.checked)}
-                  label="Solo ofertas del día"
-                />
-              </div>
-              <div className="filter-group">
-                <label className="filter-label">Envío Gratis</label>
-                <Form.Check
-                  type="checkbox"
-                  checked={graphicsFreeShipping}
-                  onChange={(e) => setGraphicsFreeShipping(e.target.checked)}
-                  label="Solo envío gratis"
-                />
-              </div>
-            </div>
-            <div className="product-grid">
-              {renderProducts(filteredGraphicsCards, graphicsIndex, 'graphics')}
-            </div>
-            <div className="carousel-controls">
-              <Button onClick={prevGraphics}><FaChevronLeft /></Button>
-              <Button onClick={nextGraphics}><FaChevronRight /></Button>
-            </div>
-          </div>
-          <div className="category">
-            <h2>Procesadores</h2>
-            <input
-              type="text"
-              className="search-bar"
-              placeholder="Buscar por nombre..."
-              value={processorsSearch}
-              onChange={(e) => setProcessorsSearch(e.target.value)}
-            />
-            <div className="filters">
-              <div className="filter-group">
-                <label className="filter-label">Precio</label>
-                <Form.Range
-                  min={0}
-                  max={2500}
-                  value={processorsPriceRange[1]}
-                  onChange={(e) => setProcessorsPriceRange([0, parseInt(e.target.value)])}
-                />
-                <div>0 - S/. {processorsPriceRange[1]}</div>
-              </div>
-              <div className="filter-group">
-                <label className="filter-label">Oferta del día</label>
-                <Form.Check
-                  type="checkbox"
-                  checked={processorsSpecialOffer}
-                  onChange={(e) => setProcessorsSpecialOffer(e.target.checked)}
-                  label="Solo ofertas del día"
-                />
-              </div>
-              <div className="filter-group">
-                <label className="filter-label">Envío Gratis</label>
-                <Form.Check
-                  type="checkbox"
-                  checked={processorsFreeShipping}
-                  onChange={(e) => setProcessorsFreeShipping(e.target.checked)}
-                  label="Solo envío gratis"
-                />
-              </div>
-            </div>
-            <div className="product-grid">
-              {renderProducts(filteredProcessors, processorsIndex, 'processors')}
-            </div>
-            <div className="carousel-controls">
-              <Button onClick={prevProcessors}><FaChevronLeft /></Button>
-              <Button onClick={nextProcessors}><FaChevronRight /></Button>
-            </div>
-          </div>
-        </Col>
-        <Col md={4}>
-          <h1>Armado</h1>
-          <div id="selected-products">
-            {selectedGraphicsCard && (
-              <div className="selected-product">
-                <img src={selectedGraphicsCard.image} alt={selectedGraphicsCard.name} />
-                <div>
-                  <strong>{selectedGraphicsCard.name}</strong>: {selectedGraphicsCard.description}
+    <div>
+      <Header />
+      <Container>
+        <Row>
+          <Col md={9}>
+            <Row>
+              <Col md={12}>
+                <h1>Catálogo</h1>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <div className="filter">
+                  <label>Precio: S/. {filters.price[0]} - S/. {filters.price[1]}</label>
+                  <Form.Range
+                    value={filters.price[1]}
+                    onChange={(e) => handleFilterChange('price', [filters.price[0], parseInt(e.target.value)])}
+                    min={0}
+                    max={5000}
+                  />
                 </div>
-              </div>
-            )}
-            {selectedProcessor && (
-              <div className="selected-product">
-                <img src={selectedProcessor.image} alt={selectedProcessor.name} />
-                <div>
-                  <strong>{selectedProcessor.name}</strong>: {selectedProcessor.description}
+                <Form.Check
+                  type="checkbox"
+                  label="Oferta del día"
+                  checked={filters.dailyDeal}
+                  onChange={() => handleFilterChange('dailyDeal', !filters.dailyDeal)}
+                />
+                <Form.Check
+                  type="checkbox"
+                  label="Envío gratis"
+                  checked={filters.freeShipping}
+                  onChange={() => handleFilterChange('freeShipping', !filters.freeShipping)}
+                />
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <h2>Tarjetas Gráficas</h2>
+                <div className="product-grid">
+                  {renderProducts(filteredGraphicsCards, graphicsIndex, 'graphics')}
                 </div>
-              </div>
-            )}
-          </div>
-          <Button id="buy-button"><FaShoppingCart /> Comprar</Button>
-          {selectedGraphicsCard && selectedProcessor && (
-            <div id="performance-chart">
-              {displayPerformanceChart()}
-            </div>
-          )}
-        </Col>
-      </Row>
-    </Container>
+                <div className="carousel-controls">
+                  <Button onClick={prevGraphics}><FaChevronLeft /></Button>
+                  <Button onClick={nextGraphics}><FaChevronRight /></Button>
+                </div>
+              </Col>
+            </Row>
+            <Row>
+              <Col md={12}>
+                <h2>Procesadores</h2>
+                <div className="product-grid">
+                  {renderProducts(filteredProcessors, processorsIndex, 'processors')}
+                </div>
+                <div className="carousel-controls">
+                  <Button onClick={prevProcessors}><FaChevronLeft /></Button>
+                  <Button onClick={nextProcessors}><FaChevronRight /></Button>
+                </div>
+              </Col>
+            </Row>
+          </Col>
+          <Col md={3}>
+            <Row>
+              <Col md={12}>
+                <h1>Armado</h1>
+                <div id="selected-products">
+                  {selectedGraphicsCard && (
+                    <div className="selected-product">
+                      <img src={selectedGraphicsCard.image} alt={selectedGraphicsCard.name} />
+                      <div>
+                        <strong>{selectedGraphicsCard.name}</strong>: {selectedGraphicsCard.description}
+                      </div>
+                    </div>
+                  )}
+                  {selectedProcessor && (
+                    <div className="selected-product">
+                      <img src={selectedProcessor.image} alt={selectedProcessor.name} />
+                      <div>
+                        <strong>{selectedProcessor.name}</strong>: {selectedProcessor.description}
+                      </div>
+                    </div>
+                  )}
+                </div>
+                <Button id="buy-button"><FaShoppingCart /> Comprar</Button>
+                {selectedGraphicsCard && selectedProcessor && (
+                  <div id="performance-chart">
+                    {displayPerformanceChart()}
+                  </div>
+                )}
+              </Col>
+            </Row>
+          </Col>
+        </Row>
+      </Container>
+    </div>
   );
 };
 
