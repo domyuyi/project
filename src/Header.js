@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { FaUser, FaShoppingCart, FaStore, FaGlobe, FaMicrochip } from 'react-icons/fa';
 
 const Header = () => {
     return (
@@ -13,27 +14,34 @@ const Header = () => {
                         <span className="navbar-toggler-icon"></span>
                     </button>
                     <div className="collapse navbar-collapse" id="navbarNav">
-                        <ul className="navbar-nav">
+                        <ul className="navbar-nav me-auto">
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" to="/">
-                                    <i data-feather="cpu"></i> Inicio
+                                    <FaMicrochip /> Inicio
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" to="/noticias">
-                                    <i data-feather="book-open"></i> Tienda
+                                    <FaStore /> Tienda
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" to="/auspicios">
-                                    <i data-feather="globe"></i> Preguntas Frecuentes
+                                    <FaGlobe /> Preguntas Frecuentes
                                 </Link>
                             </li>
                             <li className="nav-item">
                                 <Link className="nav-link active text-white" to="/comprar">
                                     <span className="badge text-bg-light">
-                                        <i data-feather="shopping-cart"></i> ¡COMPRAR!
+                                        <FaShoppingCart /> ¡COMPRAR!
                                     </span>
+                                </Link>
+                            </li>
+                        </ul>
+                        <ul className="navbar-nav">
+                            <li className="nav-item">
+                                <Link className="nav-link active text-white" to="/iniciar-sesion">
+                                    <FaUser /> Iniciar sesión
                                 </Link>
                             </li>
                         </ul>
