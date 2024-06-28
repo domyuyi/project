@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { FaCheck, FaChevronLeft, FaChevronRight, FaShoppingCart } from 'react-icons/fa';
 import 'bootstrap/dist/css/bootstrap.min.css';
@@ -8,38 +8,41 @@ import Footer from './Footer';
 import GaussianBellCurve from './GaussianBellCurve';
 
 const graphicsCards = [
-  { id: 1, name: 'NVIDIA GeForce RTX 3080', description: 'High-end gaming GPU with 10GB GDDR6X.', price: 4500, specialOffer: true, freeShipping: true, image: '/assets/NVIDIA GeForce RTX 3080.jpg' },
-  { id: 2, name: 'AMD Radeon RX 6800 XT', description: 'Powerful gaming GPU with 16GB GDDR6.', price: 4000, specialOffer: true, freeShipping: false, image: '/assets/AMD Radeon RX 6800 XT.jpg' },
-  { id: 3, name: 'NVIDIA GeForce RTX 3070', description: 'Excellent mid-range gaming GPU.', price: 3500, specialOffer: false, freeShipping: true, image: '/assets/NVIDIA GeForce RTX 3070.jpg' },
-  { id: 4, name: 'AMD Radeon RX 6700 XT', description: 'Great performance for 1440p gaming.', price: 3200, specialOffer: false, freeShipping: true, image: '/assets/AMD Radeon RX 6700 XT.jpg' },
-  { id: 5, name: 'NVIDIA GeForce RTX 3060', description: 'Good performance for 1080p gaming.', price: 2500, specialOffer: false, freeShipping: false, image: '/assets/NVIDIA GeForce RTX 3060.jpg' },
-  { id: 6, name: 'AMD Radeon RX 6600 XT', description: 'Solid 1080p gaming GPU.', price: 2400, specialOffer: false, freeShipping: true, image: '/assets/AMD Radeon RX 6600 XT.jpg' },
-  { id: 7, name: 'NVIDIA GeForce GTX 1660 Super', description: 'Affordable and efficient.', price: 1800, specialOffer: false, freeShipping: false, image: '/assets/NVIDIA GeForce GTX 1660 Super.jpg' }
+  { id: 1, name: 'NVIDIA GeForce RTX 3080', description: 'High-end gaming GPU with 10GB GDDR6X.', price: 4500, specialOffer: true, freeShipping: true, image: '/assets/NVIDIA GeForce RTX 3080.jpg', performance: 48 },
+  { id: 2, name: 'AMD Radeon RX 6800 XT', description: 'Powerful gaming GPU with 16GB GDDR6.', price: 4000, specialOffer: true, freeShipping: false, image: '/assets/AMD Radeon RX 6800 XT.jpg', performance: 46 },
+  { id: 3, name: 'NVIDIA GeForce RTX 3070', description: 'Excellent mid-range gaming GPU.', price: 3500, specialOffer: false, freeShipping: true, image: '/assets/NVIDIA GeForce RTX 3070.jpg', performance: 42 },
+  { id: 4, name: 'AMD Radeon RX 6700 XT', description: 'Great performance for 1440p gaming.', price: 3200, specialOffer: false, freeShipping: true, image: '/assets/AMD Radeon RX 6700 XT.jpg', performance: 40 },
+  { id: 5, name: 'NVIDIA GeForce RTX 3060', description: 'Good performance for 1080p gaming.', price: 2500, specialOffer: false, freeShipping: false, image: '/assets/NVIDIA GeForce RTX 3060.jpg', performance: 36 },
+  { id: 6, name: 'AMD Radeon RX 6600 XT', description: 'Solid 1080p gaming GPU.', price: 2400, specialOffer: false, freeShipping: true, image: '/assets/AMD Radeon RX 6600 XT.jpg', performance: 34 },
+  { id: 7, name: 'NVIDIA GeForce GTX 1660 Super', description: 'Affordable and efficient.', price: 1800, specialOffer: false, freeShipping: false, image: '/assets/NVIDIA GeForce GTX 1660 Super.jpg', performance: 28 }
 ];
 
 const processors = [
-  { id: 1, name: 'Intel Core i9-11900K', description: 'High performance CPU with 8 cores and 16 threads.', price: 2000, specialOffer: true, freeShipping: true, image: '/assets/Intel Core i9-11900K.jpg' },
-  { id: 2, name: 'AMD Ryzen 9 5900X', description: 'Powerful CPU with 12 cores and 24 threads.', price: 2200, specialOffer: true, freeShipping: false, image: '/assets/AMD Ryzen 9 5900X.jpg' },
-  { id: 3, name: 'Intel Core i7-11700K', description: 'Great performance for gaming and productivity.', price: 1800, specialOffer: false, freeShipping: true, image: '/assets/Intel Core i7-11700K.jpg' },
-  { id: 4, name: 'AMD Ryzen 7 5800X', description: 'Excellent all-around performance.', price: 1700, specialOffer: false, freeShipping: true, image: '/assets/AMD Ryzen 7 5800X.jpg' },
-  { id: 5, name: 'Intel Core i5-11600K', description: 'Solid performance for gaming.', price: 1200, specialOffer: false, freeShipping: false, image: '/assets/Intel Core i5-11600K.jpg' },
-  { id: 6, name: 'AMD Ryzen 5 5600X', description: 'Great value for mid-range builds.', price: 1100, specialOffer: false, freeShipping: true, image: '/assets/AMD Ryzen 5 5600X.jpg' },
-  { id: 7, name: 'Intel Core i3-10100F', description: 'Budget-friendly option for basic tasks.', price: 600, specialOffer: false, freeShipping: false, image: '/assets/Intel Core i3-10100F.jpg' }
+  { id: 1, name: 'Intel Core i9-11900K', description: 'High performance CPU with 8 cores and 16 threads.', price: 2000, specialOffer: true, freeShipping: true, image: '/assets/Intel Core i9-11900K.jpg', performance: 50 },
+  { id: 2, name: 'AMD Ryzen 9 5900X', description: 'Powerful CPU with 12 cores and 24 threads.', price: 2200, specialOffer: true, freeShipping: false, image: '/assets/AMD Ryzen 9 5900X.jpg', performance: 48 },
+  { id: 3, name: 'Intel Core i7-11700K', description: 'Great performance for gaming and productivity.', price: 1800, specialOffer: false, freeShipping: true, image: '/assets/Intel Core i7-11700K.jpg', performance: 44 },
+  { id: 4, name: 'AMD Ryzen 7 5800X', description: 'Excellent all-around performance.', price: 1700, specialOffer: false, freeShipping: true, image: '/assets/AMD Ryzen 7 5800X.jpg', performance: 42 },
+  { id: 5, name: 'Intel Core i5-11600K', description: 'Solid performance for gaming.', price: 1200, specialOffer: false, freeShipping: false, image: '/assets/Intel Core i5-11600K.jpg', performance: 34 },
+  { id: 6, name: 'AMD Ryzen 5 5600X', description: 'Great value for mid-range builds.', price: 1100, specialOffer: false, freeShipping: true, image: '/assets/AMD Ryzen 5 5600X.jpg', performance: 32 },
+  { id: 7, name: 'Intel Core i3-10100F', description: 'Budget-friendly option for basic tasks.', price: 600, specialOffer: false, freeShipping: false, image: '/assets/Intel Core i3-10100F.jpg', performance: 20 }
 ];
 
 const App = () => {
   const [selectedGraphicsCard, setSelectedGraphicsCard] = useState(null);
   const [selectedProcessor, setSelectedProcessor] = useState(null);
-
   const [graphicsIndex, setGraphicsIndex] = useState(0);
   const [processorsIndex, setProcessorsIndex] = useState(0);
-
   const [searchQuery, setSearchQuery] = useState('');
   const [filters, setFilters] = useState({
     price: [0, 5000],
     dailyDeal: false,
     freeShipping: false,
   });
+
+  useEffect(() => {
+    setGraphicsIndex(0);
+    setProcessorsIndex(0);
+  }, [searchQuery, filters]);
 
   const selectProduct = (category, product) => {
     if (category === 'graphics') {
@@ -77,14 +80,12 @@ const App = () => {
     setProcessorsIndex((prevIndex) => (prevIndex + 3 >= filteredProcessors.length ? 0 : prevIndex + 3));
   };
 
-  const displayPerformanceChart = () => {
+  const getTotalScore = () => {
     if (selectedGraphicsCard && selectedProcessor) {
-      const mean = 50;
-      const stdDev = 15;
-      return <GaussianBellCurve mean={mean} stdDev={stdDev} />;
+      return selectedGraphicsCard.performance + selectedProcessor.performance;
     }
-    return null;
-  };
+    return 0;
+  };  
 
   const renderProducts = (products, startIndex, category) => {
     return products.slice(startIndex, startIndex + 3).map((product) => (
@@ -190,14 +191,14 @@ const App = () => {
                 <Button id="buy-button"><FaShoppingCart /> Comprar</Button>
                 {selectedGraphicsCard && selectedProcessor && (
                   <div id="performance-chart">
-                    {displayPerformanceChart()}
+                    <GaussianBellCurve mean={50} stdDev={15} totalScore={getTotalScore()} />
                   </div>
                 )}
               </Col>
             </Row>
             <div className="selected-item">
-                <h4>Rendimiento estimado</h4>
-                {displayPerformanceChart()}
+              <h4>Rendimiento estimado</h4>
+              <p>{getTotalScore()}%</p>
             </div>
           </Col>
         </Row>

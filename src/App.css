@@ -40,6 +40,7 @@ h1, h2 {
 
 #performance-chart {
     margin-top: 20px;
+    height: 400px; /* Aumentar la altura del contenedor del gráfico */
 }
 
 .bar {
@@ -179,3 +180,4 @@ h1, h2 {
 .product-card:hover {
     background-color: #f5f5f5;
 }
+

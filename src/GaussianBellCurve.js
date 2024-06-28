@@ -1,57 +1,57 @@
-import React from 'react';
-import { Line } from 'react-chartjs-2';
-import { Chart as ChartJS, LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend } from 'chart.js';
+import React, { useEffect, useState } from 'react';
+import { ResponsiveContainer, LineChart, Line, XAxis, YAxis, CartesianGrid, Tooltip, ReferenceLine } from 'recharts';
 
-ChartJS.register(LineElement, PointElement, LinearScale, Title, CategoryScale, Tooltip, Legend);
+const GaussianBellCurve = ({ mean, stdDev, totalScore }) => {
+  const [chartData, setChartData] = useState([]);
+  const [maxY, setMaxY] = useState(1); // State to hold the maximum y value
 
-const GaussianBellCurve = ({ mean, stdDev }) => {
-  // Generar datos para la campana de Gauss
-  const generateGaussianData = (mean, stdDev) => {
+  useEffect(() => {
     const data = [];
-    for (let x = mean - 3 * stdDev; x <= mean + 3 * stdDev; x += 0.1) {
-      const exponent = -0.5 * Math.pow((x - mean) / stdDev, 2);
-      const y = (1 / (stdDev * Math.sqrt(2 * Math.PI))) * Math.exp(exponent);
-      data.push({ x, y });
+    const startX = 0;
+    const endX = 100;
+
+    // Find the maximum y value to normalize the curve height
+    let max = 0;
+    for (let i = startX; i <= endX; i += 1) {
+      const y = calculateNormalDistribution(i, mean, stdDev);
+      if (y > max) {
+        max = y;
+      }
+      data.push({ x: i, y });
     }
-    return data;
-  };
 
-  const gaussianData = generateGaussianData(mean, stdDev);
-  const data = {
-    labels: gaussianData.map((point) => point.x.toFixed(2)),
-    datasets: [
-      {
-        label: 'Curva de Gauss',
-        data: gaussianData.map((point) => ({ x: point.x, y: point.y })),
-        borderColor: 'rgba(75, 192, 192, 1)',
-        backgroundColor: 'rgba(75, 192, 192, 0.2)',
-        fill: true,
-        tension: 0.4,
-        pointRadius: 0, // Hides individual points
-      },
-    ],
-  };
+    // Set the maximum y value
+    setMaxY(max);
 
-  const options = {
-    scales: {
-      x: {
-        type: 'linear',
-        position: 'bottom',
-        title: {
-          display: true,
-          text: 'Valor',
-        },
-      },
-      y: {
-        title: {
-          display: true,
-          text: 'Probabilidad',
-        },
-      },
-    },
-  };
+    // Normalize the curve height to fit within the chart
+    const normalizedData = data.map(point => ({
+      x: point.x,
+      y: point.y / max
+    }));
 
-  return <Line data={data} options={options} />;
+    setChartData(normalizedData);
+
+  }, [mean, stdDev]);
+
+  function calculateNormalDistribution(x, mean, stdDev) {
+    return (
+      (1 / (stdDev * Math.sqrt(2 * Math.PI))) *
+      Math.exp((-1 * Math.pow(x - mean, 2)) / (2 * Math.pow(stdDev, 2)))
+    );
+  }
+
+  return (
+    <ResponsiveContainer width="100%" height={300}>
+      <LineChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+        <CartesianGrid strokeDasharray="3 3" />
+        <XAxis dataKey="x" domain={[0, 100]} ticks={[0, 20, 40, 60, 80, 100]} />
+        <YAxis type="number" domain={[0, 1]} ticks={[0, 0.2, 0.4, 0.6, 0.8, 1]} tickFormatter={(value) => `${(value * 100).toFixed(0)}%`} />
+        <Tooltip formatter={(value) => `${(value * maxY).toFixed(2)}`} />
+        <Line type="monotone" dataKey="y" stroke="#8884d8" dot={false} />
+        <ReferenceLine x={50} stroke="red" label={`Score: ${totalScore}`} alwaysShow />
+      </LineChart>
+    </ResponsiveContainer>
+  );
 };
 
 export default GaussianBellCurve;
