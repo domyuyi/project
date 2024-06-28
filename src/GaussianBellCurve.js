@@ -40,15 +40,21 @@ const GaussianBellCurve = ({ mean, stdDev, totalScore }) => {
     );
   }
 
+  // Calculate the new curve data based on the total score
+  const updatedChartData = chartData.map(point => ({
+    x: point.x,
+    y: point.y * (totalScore) // Adjust the y value based on totalScore
+  }));
+
   return (
     <ResponsiveContainer width="100%" height={300}>
-      <LineChart data={chartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
+      <LineChart data={updatedChartData} margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
         <CartesianGrid strokeDasharray="3 3" />
         <XAxis dataKey="x" domain={[0, 100]} ticks={[0, 20, 40, 60, 80, 100]} />
-        <YAxis type="number" domain={[0, 1]} ticks={[0, 0.2, 0.4, 0.6, 0.8, 1]} tickFormatter={(value) => `${(value * 100).toFixed(0)}%`} />
+        <YAxis type="number" domain={[0, 100]} />
         <Tooltip formatter={(value) => `${(value * maxY).toFixed(2)}`} />
         <Line type="monotone" dataKey="y" stroke="#8884d8" dot={false} />
-        <ReferenceLine x={50} stroke="red" label={`Score: ${totalScore}`} alwaysShow />
+        <ReferenceLine x={mean} stroke="red" label={`Score: ${totalScore}`} alwaysShow />
       </LineChart>
     </ResponsiveContainer>
   );
