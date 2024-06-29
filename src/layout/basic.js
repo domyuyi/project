@@ -8,7 +8,7 @@ const Basic = () => {
     return (
         
             <StrictMode>
-                <Hearder />
+                <Header />
                 <div >
                     <div >
                         <Outlet></Outlet>

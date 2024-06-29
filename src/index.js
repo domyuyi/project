@@ -2,7 +2,6 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './layout/app';
-import '/workspaces/project/src/css/Styles.css'; 
 import {
   createBrowserRouter,
   RouterProvider,
