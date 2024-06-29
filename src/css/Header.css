@@ -1,0 +1,11 @@
+.navbar-nav .nav-item {
+    margin-right: 70px;
+}
+
+/* Estilo especial para el botón de comprar */
+.navbar-nav .ms-auto .nav-link {
+    position: absolute;
+    right: 10px;
+    top: 50%;
+    transform: translateY(-50%);
+}

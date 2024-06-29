@@ -1,0 +1,56 @@
+.carousel {
+    max-width: 400px; /* Ajusta el ancho máximo según tus necesidades */
+    margin: auto; /* Centra el carrusel */
+}
+.image-grid {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 10px;
+}
+
+.image-container {
+    flex: 0 0 calc(5% - 2px); /* Ajustar el tamaño de las imágenes según el número de imágenes por fila */
+    margin-right: 5px;
+    overflow: hidden;
+    position: relative;
+    cursor: pointer;
+}
+
+.image-container:last-child {
+    margin-right: 0;
+}
+
+.image-container img {
+    width: 100%;
+    height: auto;
+    transition: transform 0.3s ease;
+}
+
+.image-container:hover img {
+    transform: scale(1.1);
+}
+
+.carrusel-container .carousel-control-next-icon,
+.carrusel-container .carousel-control-prev-icon {
+    background-color: black;
+}
+
+.carrusel-container .carousel-control-prev,
+.carrusel-container .carousel-control-next {
+    width: 5%;
+}
+
+.carrusel-container .carousel-indicators {
+    display: none;
+}
+
+.dark-image {
+    width: 100%;
+    height: auto; /* Mantén la proporción original */
+    object-fit: cover; /* Ajusta la imagen al tamaño del contenedor */
+  }
+  
+.carousel-item img {
+    max-width: 100%; /* Ajusta el ancho máximo de la imagen */
+    height: auto; /* Permite que la altura se ajuste automáticamente */
+}
