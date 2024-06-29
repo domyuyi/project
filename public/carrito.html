@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Importación de Bootstrap -->
+     <link
+     rel="stylesheet"
+     href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css"
+     integrity="sha384-M2lXWlKIWuPOfD8RzD1HDShxz4cD+O/3e6Io3hD9KO/vgrwTAO9BrpXnMwDoxw2c"
+     crossorigin="anonymous"
+     />
+     <title>Formulario de Pago</title>
+     <link rel="stylesheet" href="/src/Carrito.css">
+</head>
+<body>
+    <aside class="formulario-pago">
+        <h2>Pago</h2>
+        <form id="paymentForm" action="#" method="post">
+            <section class="info-contacto">
+                <h3>Información de contacto</h3>
+                <div class="name-fields">
+                    <div>
+                        <label for="nombre">Nombre</label>
+                        <input type="text" id="nombre" name="nombre" required>
+                    </div>
+                    <div>
+                        <label for="apellido">Apellido</label>
+                        <input type="text" id="apellido" name="apellido" required>
+                    </div>
+                </div>
+                <label for="email">Correo electrónico</label>
+                <input type="email" id="email" name="email" required>
+                <div class="checkbox-field">
+                    <input type="checkbox" id="ofertas" name="ofertas">
+                    <label for="ofertas">Enviar novedades y ofertas por correo electrónico</label>
+                </div>
+            </section>
+            
+            <section class="direccion-envio">
+                <h3>Dirección de envío</h3>
+                <label for="pais">País</label>
+                <select id="pais" name="pais" required>
+                    <!-- Opciones de países se generarán dinámicamente -->
+                </select>
+                <label for="direccion">Dirección</label>
+                <input type="text" id="direccion" name="direccion" required>
+                <label for="ciudad">Ciudad</label>
+                <input type="text" id="ciudad" name="ciudad" required>
+                <label for="codigo-postal">Código Postal</label>
+                <input type="text" id="codigo-postal" name="codigo-postal" pattern="[0-9]{5}" title="Debe contener 5 dígitos numéricos" required>
+            </section>
+            
+            <section class="metodos-pago">
+                <h3>Métodos de pago</h3>
+                <label for="tarjeta">Número de tarjeta</label>
+                <input type="text" id="tarjeta" name="tarjeta" pattern="[0-9]{16}" title="Debe contener 16 dígitos numéricos" required>
+                <div class="exp-cvv-fields">
+                    <div>
+                        <label for="fecha-expiracion">Fecha de expiración</label>
+                        <input type="text" id="fecha-expiracion" name="fecha-expiracion" pattern="(0[1-9]|1[0-2])\/?([0-9]{4}|[0-9]{2})" title="Debe estar en el formato MM/AA o MM/AAAA" required>
+                    </div>
+                    <div>
+                        <label for="cvv">CVV</label>
+                        <input type="text" id="cvv" name="cvv" pattern="[0-9]{3}" title="Debe contener 3 dígitos numéricos" required>
+                    </div>
+                </div>
+                <label for="nombre-titular">Nombre del titular</label>
+                <input type="text" id="nombre-titular" name="nombre-titular" required>
+            </section>
+            
+            <button type="submit">Pagar</button>
+        </form>
+    </aside>
+
+    <script src="/src/Carrito.js"></script>
+</body>
+</html>

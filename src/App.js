@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Container, Row, Col, Button, Form } from 'react-bootstrap';
 import { FaCheck, FaChevronLeft, FaChevronRight, FaShoppingCart } from 'react-icons/fa';
+import { BrowserRouter as Router, Route, Routes, Link, useNavigate } from 'react-router-dom';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import './App.css';
 import Header from './Header';
@@ -43,6 +44,8 @@ const App = () => {
     setGraphicsIndex(0);
     setProcessorsIndex(0);
   }, [searchQuery, filters]);
+  
+  const navigate = useNavigate();
 
   const selectProduct = (category, product) => {
     if (category === 'graphics') {
@@ -105,10 +108,14 @@ const App = () => {
     }));
   };
 
+  const handleBuyClick = () => {
+    window.location.href = '/carrito.html';
+  };
+
   return (
     <div>
       <Header />
-      <Container>
+      <Container className="shadow">
         <Row>
           <Col md={9}>
             <Row>
@@ -188,7 +195,7 @@ const App = () => {
                     </div>
                   )}
                 </div>
-                <Button id="buy-button"><FaShoppingCart /> Comprar</Button>
+                <Button id="buy-button" onClick={handleBuyClick}><FaShoppingCart /> Comprar</Button>
                 {selectedGraphicsCard && selectedProcessor && (
                   <div id="performance-chart">
                     <GaussianBellCurve mean={50} stdDev={15} totalScore={getTotalScore()} />
