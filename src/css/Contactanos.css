@@ -1,0 +1,33 @@
+.contact-container {
+    background-color: #f5f5fa;
+    padding: 20px;
+    border-radius: 60px;
+    border: 2px solid black;
+    max-width: 1300px; /* Establece el ancho máximo del contenedor */
+    margin: auto; /* Centra el contenedor horizontalmente */
+}
+
+.contact-container h2 {
+    margin-bottom: 20px;
+}
+
+.redes-title {
+    margin-bottom: 20px;
+}
+
+.social-list {
+    text-align: left;
+    margin-left: 30%; /* Ajusta este valor para mover la lista de redes sociales */
+}
+
+.social-list li {
+    margin-bottom: 10px;
+    font-size: 18px;
+    display: flex;
+    align-items: center;
+}
+
+.social-list li i {
+    margin-right: 10px;
+    font-size: 20px;
+}

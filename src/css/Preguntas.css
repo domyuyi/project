@@ -1,0 +1,32 @@
+.container {
+    max-width: 1400px; /* Limita el ancho máximo del contenedor */
+    margin: auto; /* Centra el contenedor */
+}
+
+.card {
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.card-body {
+    display: flex;
+    align-items: center;
+}
+
+.card-body i {
+    margin-right: 10px;
+}
+
+.card:hover {
+    background-color: #e3f2fd; /* Color de fondo al pasar el mouse */
+}
+
+.card-body.respuesta {
+    border-top: 1px solid #dee2e6; /* Línea separadora para la respuesta */
+    padding-top: 10px;
+    margin-top: -10px;
+}
+
+.card.active .card-body:first-child {
+    background-color: #e3f2fd; /* Color de fondo para la pregunta activa */
+}
