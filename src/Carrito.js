@@ -1,53 +1,56 @@
-import React from 'react';
-import { useLocation } from 'react-router-dom';
-import { Container, Row, Col } from 'react-bootstrap';
-
-const Carrito = () => {
-  const location = useLocation();
-  const { selectedGraphicsCard, selectedProcessor } = location.state || {};
-
-  const dolarPrecio = 3.75;
-  const costoEnvio = 20;
-  const subTotal = (selectedGraphicsCard?.price || 0) + (selectedProcessor?.price || 0);
-  const total = subTotal + (costoEnvio * dolarPrecio);
-
-  return (
-    <Container>
-      <h2>Carrito de Compras</h2>
-      <Row>
-        <Col md={6}>
-        {selectedGraphicsCard && (
-            <div className="selected-product">
-              <img src={selectedGraphicsCard.image} alt={selectedGraphicsCard.name} />
-              <div>
-                <strong>{selectedGraphicsCard.name}</strong>
-                <p>Precio: S/. {selectedGraphicsCard.price}</p>
-              </div>
-            </div>
-          )}
-        </Col>
-        <Col md={6}>
-          {selectedProcessor && (
-            <div className="selected-product">
-              <img src={selectedProcessor.image} alt={selectedProcessor.name} />
-              <div>
-                <strong>{selectedProcessor.name}</strong>
-                <p>Precio: S/. {selectedProcessor.price}</p>
-              </div>
-            </div>
-          )}
-        </Col>
-      </Row>
-      <Row>
-        <Col md={12}>
-          <h3>Desglose del precio</h3>
-          <p>Subtotal: S/. {subTotal}</p>
-          <p>Costo de envío: S/. {costoEnvio * dolarPrecio}</p>
-          <h4>Total: S/. {total.toFixed(2)}</h4>
-        </Col>
-      </Row>
-    </Container>
-  );
+const countryPhoneCodes = {
+  "Peru": { "code": "+51", "pattern": "[0-9]{9}", "title": "Debe contener 9 dígitos numéricos" },
+  "USA": { "code": "+1", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "UK": { "code": "+44", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Argentina": { "code": "+54", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Brazil": { "code": "+55", "pattern": "[0-9]{11}", "title": "Debe contener 11 dígitos numéricos" },
+  "Canada": { "code": "+1", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Chile": { "code": "+56", "pattern": "[0-9]{9}", "title": "Debe contener 9 dígitos numéricos" },
+  "China": { "code": "+86", "pattern": "[0-9]{11}", "title": "Debe contener 11 dígitos numéricos" },
+  "France": { "code": "+33", "pattern": "[0-9]{9}", "title": "Debe contener 9 dígitos numéricos" },
+  "Germany": { "code": "+49", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "India": { "code": "+91", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Italy": { "code": "+39", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Japan": { "code": "+81", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Mexico": { "code": "+52", "pattern": "[0-9]{10}", "title": "Debe contener 10 dígitos numéricos" },
+  "Spain": { "code": "+34", "pattern": "[0-9]{9}", "title": "Debe contener 9 dígitos numéricos" },
+  "Australia": { "code": "+61", "pattern": "[0-9]{9}", "title": "Debe contener 9 dígitos numéricos" }
 };
 
-export default Carrito;
+// Función para llenar el selector de países
+function populateCountrySelect() {
+  const select = document.getElementById('pais');
+  for (const country in countryPhoneCodes) {
+      const option = document.createElement('option');
+      option.value = country;
+      option.text = country;
+      select.appendChild(option);
+  }
+}
+
+// Función para actualizar la validación del número de teléfono
+function updatePhoneValidation() {
+  const select = document.getElementById('pais');
+  const telefono = document.getElementById('telefono');
+  const selectedCountry = select.value;
+
+  if (countryPhoneCodes[selectedCountry]) {
+      const { pattern, title } = countryPhoneCodes[selectedCountry];
+      telefono.pattern = pattern;
+      telefono.title = title;
+  }
+}
+
+// Llenar el selector de países al cargar la página
+document.addEventListener('DOMContentLoaded', () => {
+  populateCountrySelect();
+  document.getElementById('pais').addEventListener('change', updatePhoneValidation);
+  document.getElementById('paymentForm').addEventListener('submit', function(event) {
+      let form = event.target;
+      if (!form.checkValidity()) {
+          event.preventDefault();
+          event.stopPropagation();
+      }
+      form.classList.add('was-validated');
+    },false);
+});
