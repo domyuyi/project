@@ -26,9 +26,7 @@ const Carrusel = () => {
 
       carouselItems.push(
         <Carousel.Item key={i}>
-          <br />
-            <center><h2>Procesadores</h2></center>
-            <br />
+          
           <div className="row">
             {slicedProcesador.map((item, subIndex) => (
               <div key={startIndex + subIndex} className="col">

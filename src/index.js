@@ -1,4 +1,4 @@
-import 'bootstrap/dist/css/bootstrap.min.css';
+'bootstrap/dist/css/bootstrap.min.css';
 import React, { StrictMode } from 'react';
 import { createRoot } from 'react-dom/client';
 import App from './layout/app';
@@ -8,7 +8,9 @@ import {
 } from "react-router-dom";
 import Basic from "./layout/basic";
 import Single from "./layout/single";
+import Singlee from "./layout/Singlee";
 import PreguntFrec from './layout/preguntfrec';
+
 
 const feather = require('feather-icons');
 setTimeout(() => {
@@ -31,6 +33,10 @@ const router = createBrowserRouter([
       {
         path: "/detalle/:slug",
         element: <Single />,
+      },
+      {
+        path: "/detalle_Grafica:slug",
+        element: <Singlee />,
       },
       {
         path: "/preguntas",
