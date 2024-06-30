@@ -7,12 +7,14 @@ const Footer = () => {
             <div className="container">
                 <div className="row">
                     <div className="col-md-6">
-                        <h5>Información de creador</h5>
-                        <p>Correo electrónico:</p>
-                        <p>-    ycachoq1@upao.edu.pe </p>
-                        <p>-    hberrospir1@upao.edu.pe </p>
-                        <p>-    rlavadof1@upao.edu.pe </p>
-                        <p>-    sevelasquezr1@upao.edu.pe </p>
+                        <h5>Información de creador</h5> 
+                        <p></p>
+                        Correo electrónico:<br/>
+                        <i>-    ycachoq1@upao.edu.pe </i> <br/>
+                        <i>-    hberrospir1@upao.edu.pe </i> <br/>
+                        <i>-    rlavadof1@upao.edu.pe </i> <br/>
+                        <i>-    sevelasquezr1@upao.edu.pe </i> <br/>
+                        <p></p>
                         <p>Teléfono: 923-456-789</p>
                     </div>
                     <div className="col-md-6">
