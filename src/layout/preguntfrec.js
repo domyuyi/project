@@ -9,6 +9,9 @@ const PreguntFrec = () => {
         <div>
             <Preguntas />
             <Contactanos/>
+            <br/>
+            <br/>
+            <br/>
         </div>
     );
 };
